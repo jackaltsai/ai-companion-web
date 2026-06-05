@@ -163,6 +163,14 @@ function ChatSection({ persona }) {
   );
 }
 
+const PAYPAL_CLIENT_ID = "ARbmywN-Mb185r20fwvRWj2X3kVHEHzn6yy1M8XHZyV-LE_rKPyHADQTE3kE2PvHRUQhFXacDrtIhn7x";
+const WORKER_URL = "REPLACE_WITH_YOUR_WORKER_URL"; // e.g. https://ai-companion-worker.your-account.workers.dev
+const PLAN_IDS = {
+  monthly: "REPLACE_WITH_MONTHLY_PLAN_ID", // P-XXXXXXXXXX
+  yearly:  "REPLACE_WITH_YEARLY_PLAN_ID",  // P-XXXXXXXXXX
+};
+const LINE_BOT_URL = "https://line.me/R/ti/p/@491zwjgn";
+
 const PLANS = [
   {
     name: "免費", free: true,
@@ -182,6 +190,38 @@ const PLANS = [
 ];
 
 function Pricing({ onPick }) {
+  const { useState: uS, useEffect: uE } = React;
+  const [paypalReady, setPaypalReady] = uS(false);
+  const [loading, setLoading] = uS(null);
+
+  uE(() => {
+    if (window.paypal) { setPaypalReady(true); return; }
+    const script = document.createElement("script");
+    script.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&vault=true&intent=subscription&currency=TWD`;
+    script.onload = () => setPaypalReady(true);
+    document.head.appendChild(script);
+  }, []);
+
+  async function handleSubscribe(prompt) {
+    if (prompt === "free") { window.open(LINE_BOT_URL, "_blank"); return; }
+    setLoading(prompt);
+    try {
+      const res = await fetch(`${WORKER_URL}/api/create-subscription`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ planId: PLAN_IDS[prompt] }),
+      });
+      const { approvalUrl, subscriptionId } = await res.json();
+      // 儲存 subscriptionId 供付款後查詢
+      sessionStorage.setItem("pendingSubId", subscriptionId);
+      window.location.href = approvalUrl;
+    } catch (e) {
+      alert("發生錯誤，請稍後再試");
+    } finally {
+      setLoading(null);
+    }
+  }
+
   return (
     <section className="section-pad" id="pricing">
       <div className="shell">
@@ -211,7 +251,13 @@ function Pricing({ onPick }) {
                   </li>
                 ))}
               </ul>
-              <button className={"btn " + (pl.primary ? "btn-primary" : "btn-ghost")} onClick={() => onPick(pl.prompt)}>{pl.btn}</button>
+              <button
+                className={"btn " + (pl.primary ? "btn-primary" : "btn-ghost")}
+                onClick={() => handleSubscribe(pl.prompt)}
+                disabled={loading === pl.prompt}
+              >
+                {loading === pl.prompt ? "處理中…" : pl.btn}
+              </button>
             </div>
           ))}
         </div>

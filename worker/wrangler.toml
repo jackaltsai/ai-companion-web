@@ -1,0 +1,16 @@
+name = "ai-companion-worker"
+main = "index.js"
+compatibility_date = "2024-01-01"
+
+[[kv_namespaces]]
+binding = "SUBSCRIPTIONS"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+
+[vars]
+PAYPAL_API_BASE = "https://api-m.paypal.com"
+LINE_BOT_URL = "https://line.me/R/ti/p/@491zwjgn"
+
+# 在 Cloudflare Dashboard → Worker → Settings → Variables 設定以下 Secrets：
+# PAYPAL_CLIENT_ID   = ARbmywN-Mb185r20fwvRWj2X3kVHEHzn6yy1M8XHZyV-LE_rKPyHADQTE3kE2PvHRUQhFXacDrtIhn7x
+# PAYPAL_SECRET      = (你的 Secret)
+# PAYPAL_WEBHOOK_ID  = (PayPal Dashboard 設定 Webhook 後取得)

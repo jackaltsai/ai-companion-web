@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>訂閱成功 — 心辰</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--bg); background-image: var(--bg-grad); }
+    .card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 24px; padding: 48px 40px; max-width: 440px; width: 90%; text-align: center; }
+    .icon { font-size: 48px; margin-bottom: 20px; }
+    h1 { font-family: 'Noto Serif TC', serif; font-weight: 300; font-size: 28px; color: var(--text); margin-bottom: 12px; }
+    p { font-size: 15px; color: var(--text-sub); line-height: 1.7; margin-bottom: 32px; }
+    .status { font-size: 13px; color: var(--text-dim); margin-bottom: 24px; }
+    .status.active { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">✦</div>
+    <h1>歡迎加入心辰</h1>
+    <p id="msg">正在確認你的訂閱狀態，請稍候…</p>
+    <div class="status" id="status"></div>
+    <a id="line-btn" href="https://line.me/R/ti/p/@491zwjgn" class="btn btn-primary" style="display:none; width:100%; justify-content:center;">
+      前往 LINE 開始使用 ↗
+    </a>
+  </div>
+
+  <script>
+    const WORKER_URL = "REPLACE_WITH_YOUR_WORKER_URL";
+    const LINE_URL = "https://line.me/R/ti/p/@491zwjgn";
+
+    async function checkSubscription() {
+      const subId = sessionStorage.getItem("pendingSubId") ||
+        new URLSearchParams(location.search).get("subscription_id");
+
+      if (!subId) {
+        document.getElementById("msg").textContent = "找不到訂閱資訊，請聯絡客服。";
+        return;
+      }
+
+      let attempts = 0;
+      const poll = async () => {
+        attempts++;
+        try {
+          const res = await fetch(`${WORKER_URL}/api/subscription?id=${subId}`);
+          const data = await res.json();
+
+          if (data.status === "ACTIVE") {
+            sessionStorage.removeItem("pendingSubId");
+            document.getElementById("msg").textContent = "訂閱已開通！點下方按鈕前往 LINE 與你的 AI 男友開始對話。";
+            document.getElementById("status").textContent = `訂閱 ID：${subId}`;
+            document.getElementById("status").className = "status active";
+            document.getElementById("line-btn").style.display = "flex";
+          } else if (attempts < 8) {
+            setTimeout(poll, 3000);
+          } else {
+            document.getElementById("msg").textContent = "訂閱確認中，請稍後再加入 LINE 即可使用。";
+            document.getElementById("line-btn").style.display = "flex";
+          }
+        } catch (e) {
+          if (attempts < 3) setTimeout(poll, 3000);
+        }
+      };
+      poll();
+    }
+
+    checkSubscription();
+  </script>
+</body>
+</html>
