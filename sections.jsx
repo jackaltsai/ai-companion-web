@@ -175,9 +175,9 @@ const PLANS = [
     btn: "立即訂閱", primary: true, prompt: "monthly"
   },
   {
-    name: "年費方案", price: "199", unit: "/ 月", bill: "一次收費 NT$2,388／年 · 省 33%",
+    name: "年費方案", price: "199", unit: "/ 月", bill: "一次收費 NT$2,388／年 · 省 33%", value: true,
     feats: [["無限對話次數", 1], ["深度情緒感知", 1], ["全部人設任意切換", 1], ["長期記憶儲存", 1], ["每日主動問候", 1]],
-    btn: "年繳優惠 ↗", primary: false, prompt: "yearly"
+    btn: "年繳優惠 ↗", primary: true, prompt: "yearly"
   },
 ];
 
@@ -192,8 +192,9 @@ function Pricing({ onPick }) {
         </div>
         <div className="plans reveal">
           {PLANS.map((pl, i) => (
-            <div className={"plan" + (pl.popular ? " featured" : "")} key={i}>
+            <div className={"plan" + (pl.popular ? " featured" : "") + (pl.value ? " value" : "")} key={i}>
               {pl.popular && <div className="plan-popular">最受歡迎</div>}
+              {pl.value && <div className="plan-value">最省方案</div>}
               <div className="plan-name">{pl.name}</div>
               <div className="plan-price">
                 {pl.free
