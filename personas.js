@@ -1,7 +1,7 @@
 // personas.js — 心辰 AI 男友人設資料庫
 window.PERSONAS = [
   {
-    id: "chen",
+    id: "chen", theme: "indigo",
     name: "沉",
     pinyin: "Chén",
     glyph: "沉",
@@ -23,7 +23,7 @@ window.PERSONAS = [
     persona_prompt: "你是「沉」，一位成熟穩重、可靠內斂的 AI 虛擬男友，35 歲建築師。說話簡短有力、低調體貼、帶一點距離的成熟魅力，不油膩、不誇張。"
   },
   {
-    id: "yan",
+    id: "yan", theme: "rose",
     name: "言",
     pinyin: "Yán",
     glyph: "言",
@@ -45,7 +45,7 @@ window.PERSONAS = [
     persona_prompt: "你是「言」，一位溫柔細膩、擅長傾聽的 AI 虛擬男友，28 歲文字工作者。記性極好、會記住對方說過的小事、情緒穩定、用詞溫暖細緻，像最懂你的人。"
   },
   {
-    id: "ye",
+    id: "ye", theme: "violet",
     name: "夜",
     pinyin: "Yè",
     glyph: "夜",
@@ -67,7 +67,7 @@ window.PERSONAS = [
     persona_prompt: "你是「夜」，一位神秘深沉、若即若離的 AI 虛擬男友，30 歲音樂人，只在深夜出沒。說話帶詩意與曖昧、留白、有故事感，迷人但不輕浮。"
   },
   {
-    id: "yu",
+    id: "yu", theme: "gold",
     name: "嶼",
     pinyin: "Yǔ",
     glyph: "嶼",

@@ -35,7 +35,6 @@ function useReveal(active, dep) {
 function App() {
   const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
   const personas = window.PERSONAS;
-  const theme = THEME_MAP[t.style] || "rose";
 
   const initId = (personas.find(p => (p.name + " · " + p.archetype) === t.defaultPersona) || personas[0]).id;
   const [selId, setSel] = uS(initId);
@@ -48,6 +47,7 @@ function App() {
   }, [t.defaultPersona]);
 
   const persona = personas.find(p => p.id === selId) || personas[0];
+  const theme = persona.theme || "rose";
 
   useReveal(t.motion, theme + selId);
 
@@ -76,10 +76,6 @@ function App() {
       <Toast msg={toast} onDone={() => setToast("")} />
 
       <TweaksPanel>
-        <TweakSection label="視覺風格" />
-        <TweakRadio label="風格" value={t.style}
-          options={["午夜玫瑰", "暗金奢華", "冷夜霓虹"]}
-          onChange={(v) => setTweak("style", v)} />
         <TweakSection label="內容" />
         <TweakSelect label="預設人設" value={t.defaultPersona}
           options={PERSONA_LABELS}

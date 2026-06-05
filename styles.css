@@ -52,6 +52,23 @@
   --chip-bg:  rgba(233,236,246,0.05);
 }
 
+[data-theme="violet"] {
+  --bg:       #090810;
+  --bg-grad:  radial-gradient(120% 90% at 80% -10%, #1a1228 0%, #090810 55%);
+  --surface:  #120f1c;
+  --raised:   #1a1628;
+  --text:     #EDE8F6;
+  --text-sub: #A99EC0;
+  --text-dim: #6E6488;
+  --accent:   oklch(0.70 0.16 305);
+  --accent-2: oklch(0.65 0.12 270);
+  --accent-ink: #0e0b18;
+  --glow:     oklch(0.70 0.16 305 / 0.42);
+  --border:   rgba(237,232,246,0.10);
+  --border-2: rgba(237,232,246,0.16);
+  --chip-bg:  rgba(237,232,246,0.05);
+}
+
 /* ============== BASE ============== */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
