@@ -164,7 +164,7 @@ function ChatSection({ persona }) {
 }
 
 const PAYPAL_CLIENT_ID = "ARbmywN-Mb185r20fwvRWj2X3kVHEHzn6yy1M8XHZyV-LE_rKPyHADQTE3kE2PvHRUQhFXacDrtIhn7x";
-const WORKER_URL = "REPLACE_WITH_YOUR_WORKER_URL"; // e.g. https://ai-companion-worker.your-account.workers.dev
+const WORKER_URL = "https://ai-companion-worker.hata-s520.workers.dev";
 const PLAN_IDS = {
   monthly: "P-8K907320TV0261543NIRIYBI",
   yearly:  "P-03J7975934415525RNIRIYBQ",
