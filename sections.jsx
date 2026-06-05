@@ -166,8 +166,8 @@ function ChatSection({ persona }) {
 const PAYPAL_CLIENT_ID = "ARbmywN-Mb185r20fwvRWj2X3kVHEHzn6yy1M8XHZyV-LE_rKPyHADQTE3kE2PvHRUQhFXacDrtIhn7x";
 const WORKER_URL = "REPLACE_WITH_YOUR_WORKER_URL"; // e.g. https://ai-companion-worker.your-account.workers.dev
 const PLAN_IDS = {
-  monthly: "REPLACE_WITH_MONTHLY_PLAN_ID", // P-XXXXXXXXXX
-  yearly:  "REPLACE_WITH_YEARLY_PLAN_ID",  // P-XXXXXXXXXX
+  monthly: "P-8K907320TV0261543NIRIYBI",
+  yearly:  "P-03J7975934415525RNIRIYBQ",
 };
 const LINE_BOT_URL = "https://line.me/R/ti/p/@491zwjgn";
 
