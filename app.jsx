@@ -55,9 +55,11 @@ function App() {
     const el = document.getElementById(id);
     if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 60, behavior: "smooth" });
   }
-  const onStart = () => { setToast("「" + persona.name + "」正在線上 — 先在下方傳一句話試試 ♡"); scrollTo("chat"); };
+  const LINE_URL = "https://line.me/R/ti/p/@491zwjgn";
+  const onStart = () => window.open(LINE_URL, "_blank");
   const onPick = (plan) => {
-    const label = { free: "免費方案", monthly: "月費方案 NT$299／月", yearly: "年費方案 NT$199／月" }[plan];
+    if (plan === "free") { window.open(LINE_URL, "_blank"); return; }
+    const label = { monthly: "月費方案 NT$299／月", yearly: "年費方案 NT$199／月" }[plan];
     setToast("示範模式：前往「" + label + "」結帳 ✓");
   };
 
