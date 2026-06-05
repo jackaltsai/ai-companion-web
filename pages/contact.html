@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>聯絡我們 · 心辰</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div class="app" data-theme="rose">
+
+  <nav class="nav">
+    <div class="shell nav-inner">
+      <a class="brand" href="../心辰%20Landing.html">
+        <span class="mark">心<b>辰</b></span>
+        <span class="sub">Heart · Star</span>
+      </a>
+      <div class="nav-links">
+        <a class="nav-back" href="../心辰%20Landing.html">← 回首頁</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="page-hero">
+    <div class="shell">
+      <span class="eyebrow">Contact Us</span>
+      <h1>聯絡我們</h1>
+      <p class="lede">無論是使用上的疑問、退款申請，還是合作提案，我們都在。選一個你方便的方式，或直接留言給我們。</p>
+    </div>
+  </header>
+
+  <div class="shell">
+    <div class="contact-grid">
+
+      <div class="contact-methods">
+        <div class="method">
+          <div class="m-ic">✉</div>
+          <div>
+            <h3>客服信箱</h3>
+            <p><a href="mailto:support@xinchen.app">support@xinchen.app</a></p>
+            <p class="m-meta">一般問題與退款申請，我們通常於 1 個工作天內回覆。</p>
+          </div>
+        </div>
+        <div class="method">
+          <div class="m-ic">◆</div>
+          <div>
+            <h3>LINE 官方帳號</h3>
+            <p>@xinchen</p>
+            <p class="m-meta">加入官方帳號，即時詢問常見問題與帳號協助。</p>
+          </div>
+        </div>
+        <div class="method">
+          <div class="m-ic">✶</div>
+          <div>
+            <h3>商務合作</h3>
+            <p><a href="mailto:partner@xinchen.app">partner@xinchen.app</a></p>
+            <p class="m-meta">媒體採訪、異業合作與品牌提案歡迎來信。</p>
+          </div>
+        </div>
+        <div class="method">
+          <div class="m-ic">☾</div>
+          <div>
+            <h3>服務時間</h3>
+            <p>週一至週五 10:00 – 19:00（GMT+8）</p>
+            <p class="m-meta">非服務時間來訊，我們會在下個工作日依序回覆。</p>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form" id="cform" novalidate>
+        <h2>留言給我們</h2>
+        <p class="sub">填寫以下表單，我們會盡快與你聯繫。</p>
+        <div class="field">
+          <label for="name">你的暱稱</label>
+          <input id="name" type="text" placeholder="想怎麼稱呼你？" required>
+        </div>
+        <div class="field">
+          <label for="email">電子郵件</label>
+          <input id="email" type="email" placeholder="you@example.com" required>
+        </div>
+        <div class="field">
+          <label for="topic">主題</label>
+          <select id="topic">
+            <option>一般問題</option>
+            <option>帳號與登入</option>
+            <option>訂閱與付款</option>
+            <option>退款申請</option>
+            <option>意見回饋</option>
+            <option>商務合作</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="msg">訊息內容</label>
+          <textarea id="msg" placeholder="把想說的告訴我們…" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">送出訊息</button>
+        <div class="form-ok" id="formok"></div>
+      </form>
+
+    </div>
+  </div>
+
+  <div class="shell">
+    <footer class="footer">
+      <div class="f-brand">心辰</div>
+      <div class="f-links">
+        <a href="terms.html">服務條款</a>
+        <a href="privacy.html">隱私權政策</a>
+        <a href="refund.html">退款政策</a>
+        <a href="contact.html">聯絡我們</a>
+      </div>
+      <div class="f-note">© 2026 心辰 — 陪你度過每個需要的時刻</div>
+    </footer>
+  </div>
+
+</div>
+
+<script>
+  (function () {
+    var form = document.getElementById('cform');
+    var ok = document.getElementById('formok');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = document.getElementById('name');
+      var email = document.getElementById('email');
+      var msg = document.getElementById('msg');
+      if (!name.value.trim() || !email.value.trim() || !msg.value.trim()) {
+        ok.style.color = 'var(--text-dim)';
+        ok.textContent = '請填寫暱稱、電子郵件與訊息內容。';
+        return;
+      }
+      ok.style.color = 'var(--accent)';
+      ok.textContent = '✓ 已收到你的訊息，' + name.value.trim() + '，我們會盡快回覆你（示範表單）。';
+      form.reset();
+    });
+  })();
+</script>
+</body>
+</html>
