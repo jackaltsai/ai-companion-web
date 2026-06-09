@@ -21,51 +21,49 @@
     <h1>歡迎加入心辰</h1>
     <p id="msg">正在確認你的訂閱狀態，請稍候…</p>
     <div class="status" id="status"></div>
-    <a id="line-btn" href="https://line.me/R/ti/p/@491zwjgn" class="btn btn-primary" style="display:none; width:100%; justify-content:center;">
+    <a href="https://line.me/R/ti/p/@491zwjgn" class="btn btn-primary" id="line-btn" style="display:none; width:100%; justify-content:center;">
       前往 LINE 開始使用 ↗
     </a>
   </div>
 
   <script>
     const WORKER_URL = "https://ai-companion-worker.hata-s520.workers.dev";
-    const LINE_URL = "https://line.me/R/ti/p/@491zwjgn";
+    const params = new URLSearchParams(location.search);
+    const provider = params.get("provider") || "stripe";
 
-    async function checkSubscription() {
-      const subId = sessionStorage.getItem("pendingSubId") ||
-        new URLSearchParams(location.search).get("subscription_id");
+    async function checkStatus() {
+      try {
+        let data;
 
-      if (!subId) {
-        document.getElementById("msg").textContent = "找不到訂閱資訊，請聯絡客服。";
-        return;
-      }
-
-      let attempts = 0;
-      const poll = async () => {
-        attempts++;
-        try {
+        if (provider === "stripe") {
+          const sessionId = params.get("session_id");
+          if (!sessionId) throw new Error("找不到付款資訊");
+          const res = await fetch(`${WORKER_URL}/stripe/session?session_id=${sessionId}`);
+          data = await res.json();
+        } else {
+          const subId = params.get("subscription_id") || sessionStorage.getItem("pendingSubId");
+          if (!subId) throw new Error("找不到訂閱資訊");
           const res = await fetch(`${WORKER_URL}/api/subscription?id=${subId}`);
-          const data = await res.json();
-
-          if (data.status === "ACTIVE") {
-            sessionStorage.removeItem("pendingSubId");
-            document.getElementById("msg").textContent = "訂閱已開通！點下方按鈕前往 LINE 與你的 AI 男友開始對話。";
-            document.getElementById("status").textContent = `訂閱 ID：${subId}`;
-            document.getElementById("status").className = "status active";
-            document.getElementById("line-btn").style.display = "flex";
-          } else if (attempts < 8) {
-            setTimeout(poll, 3000);
-          } else {
-            document.getElementById("msg").textContent = "訂閱確認中，請稍後再加入 LINE 即可使用。";
-            document.getElementById("line-btn").style.display = "flex";
-          }
-        } catch (e) {
-          if (attempts < 3) setTimeout(poll, 3000);
+          data = await res.json();
+          sessionStorage.removeItem("pendingSubId");
         }
-      };
-      poll();
+
+        if (data.status === "ACTIVE" || data.status === "paid") {
+          document.getElementById("msg").textContent = "訂閱已開通！點下方按鈕前往 LINE 與你的 AI 男友開始對話。";
+          document.getElementById("status").textContent = `訂閱已啟用 · ${data.email || ""}`;
+          document.getElementById("status").className = "status active";
+          document.getElementById("line-btn").style.display = "flex";
+        } else {
+          document.getElementById("msg").textContent = "付款完成！訂閱確認中，請稍後加入 LINE 即可使用。";
+          document.getElementById("line-btn").style.display = "flex";
+        }
+      } catch (e) {
+        document.getElementById("msg").textContent = e.message || "發生錯誤，請聯絡客服。";
+        document.getElementById("line-btn").style.display = "flex";
+      }
     }
 
-    checkSubscription();
+    checkStatus();
   </script>
 </body>
 </html>

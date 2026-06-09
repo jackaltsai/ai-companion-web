@@ -163,11 +163,11 @@ function ChatSection({ persona }) {
   );
 }
 
-const PAYPAL_CLIENT_ID = "ARbmywN-Mb185r20fwvRWj2X3kVHEHzn6yy1M8XHZyV-LE_rKPyHADQTE3kE2PvHRUQhFXacDrtIhn7x";
+const STRIPE_PUBLISHABLE_KEY = "pk_test_51TgJ9iCS4uP4qp5LybQQEbFUt9eoDgmrU1EXLgpe9yoRzrfm3tkcr49wKfFgtIpQgwb949hBaORBIrTATIiBatz600yTUGOoRN";
 const WORKER_URL = "https://ai-companion-worker.hata-s520.workers.dev";
-const PLAN_IDS = {
-  monthly: "P-8K907320TV0261543NIRIYBI",
-  yearly:  "P-03J7975934415525RNIRIYBQ",
+const STRIPE_PRICE_IDS = {
+  monthly: "price_1TgJCsCS4uP4qp5LviT78xOO",
+  yearly:  "price_1TgJCtCS4uP4qp5Ls5kmO9tF",
 };
 const LINE_BOT_URL = "https://line.me/R/ti/p/@491zwjgn";
 
@@ -206,15 +206,14 @@ function Pricing({ onPick }) {
     if (prompt === "free") { window.open(LINE_BOT_URL, "_blank"); return; }
     setLoading(prompt);
     try {
-      const res = await fetch(`${WORKER_URL}/api/create-subscription`, {
+      const res = await fetch(`${WORKER_URL}/stripe/create-checkout`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ planId: PLAN_IDS[prompt] }),
+        body: JSON.stringify({ priceId: STRIPE_PRICE_IDS[prompt] }),
       });
-      const { approvalUrl, subscriptionId } = await res.json();
-      // 儲存 subscriptionId 供付款後查詢
-      sessionStorage.setItem("pendingSubId", subscriptionId);
-      window.location.href = approvalUrl;
+      const { url, error } = await res.json();
+      if (error) throw new Error(error);
+      window.location.href = url;
     } catch (e) {
       alert("發生錯誤，請稍後再試");
     } finally {
