@@ -325,6 +325,7 @@ function Footer() {
           <a href="pages/contact.html">聯絡我們</a>
         </div>
         <div className="f-note">© 2026 心辰 — 陪你度過每個需要的時刻</div>
+        <div className="f-company">億辰科技有限公司 Yichen Tech, LLC</div>
       </footer>
     </div>
   );

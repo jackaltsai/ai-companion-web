@@ -442,6 +442,7 @@ section { position: relative; }
 .footer .f-links a { font-size: 12px; color: var(--text-dim); text-decoration: none; }
 .footer .f-links a:hover { color: var(--accent); }
 .footer .f-note { font-size: 11px; color: var(--text-dim); }
+.footer .f-company { font-size: 11px; color: var(--text-dim); width: 100%; text-align: center; margin-top: 4px; }
 
 /* ============== TOAST ============== */
 .toast {
