@@ -163,7 +163,6 @@ function ChatSection({ persona }) {
   );
 }
 
-const STRIPE_PUBLISHABLE_KEY = "pk_test_51TgJ9iCS4uP4qp5LybQQEbFUt9eoDgmrU1EXLgpe9yoRzrfm3tkcr49wKfFgtIpQgwb949hBaORBIrTATIiBatz600yTUGOoRN";
 const WORKER_URL = "https://ai-companion-worker.hata-s520.workers.dev";
 const STRIPE_PRICE_IDS = {
   monthly: "price_1TgJCsCS4uP4qp5LviT78xOO",
@@ -191,16 +190,8 @@ const PLANS = [
 
 function Pricing({ onPick }) {
   const { useState: uS, useEffect: uE } = React;
-  const [paypalReady, setPaypalReady] = uS(false);
   const [loading, setLoading] = uS(null);
 
-  uE(() => {
-    if (window.paypal) { setPaypalReady(true); return; }
-    const script = document.createElement("script");
-    script.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&vault=true&intent=subscription&currency=TWD`;
-    script.onload = () => setPaypalReady(true);
-    document.head.appendChild(script);
-  }, []);
 
   async function handleSubscribe(prompt) {
     if (prompt === "free") { window.open(LINE_BOT_URL, "_blank"); return; }

@@ -6,11 +6,6 @@ compatibility_date = "2024-01-01"
 binding = "SUBSCRIPTIONS"
 id = "d436a6061a564700a15549af70984795"
 
-[vars]
-PAYPAL_API_BASE = "https://api-m.paypal.com"
-LINE_BOT_URL = "https://line.me/R/ti/p/@491zwjgn"
-
 # 在 Cloudflare Dashboard → Worker → Settings → Variables 設定以下 Secrets：
-# PAYPAL_CLIENT_ID   = ARbmywN-Mb185r20fwvRWj2X3kVHEHzn6yy1M8XHZyV-LE_rKPyHADQTE3kE2PvHRUQhFXacDrtIhn7x
-# PAYPAL_SECRET      = (你的 Secret)
-# PAYPAL_WEBHOOK_ID  = (PayPal Dashboard 設定 Webhook 後取得)
+# STRIPE_SECRET_KEY      = sk_test_... (或正式的 sk_live_...)
+# STRIPE_WEBHOOK_SECRET  = whsec_...
