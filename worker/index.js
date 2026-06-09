@@ -8,7 +8,7 @@ const CORS = {
   "Access-Control-Allow-Headers": "Content-Type, stripe-signature",
 };
 
-const SITE_URL = "https://ai-companion-web.pages.dev";
+const SITE_URL = "https://ai-companion-web.hata-s520.pages.dev";
 
 export default {
   async fetch(request, env) {
@@ -28,7 +28,7 @@ export default {
       return handleStripeSession(request, env);
     }
 
-    return new Response("Not Found", { status: 404 });
+    return new Response("Not Found", { status: 404, headers: CORS });
   },
 };
 
