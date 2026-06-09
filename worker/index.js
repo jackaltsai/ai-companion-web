@@ -8,7 +8,7 @@ const CORS = {
   "Access-Control-Allow-Headers": "Content-Type, stripe-signature",
 };
 
-const SITE_URL = "https://ai-companion-web.hata-s520.pages.dev";
+const SITE_URL = "https://ai-companion-web.hata-s520.workers.dev";
 
 export default {
   async fetch(request, env) {
