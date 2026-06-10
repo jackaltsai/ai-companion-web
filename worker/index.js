@@ -36,6 +36,9 @@ export default {
     if (url.pathname === "/linepay/confirm" && request.method === "GET") {
       return handleLinePayConfirm(request, env);
     }
+    if (url.pathname === "/linepay/order" && request.method === "GET") {
+      return handleLinePayOrder(request, env);
+    }
 
     return new Response("Not Found", { status: 404, headers: CORS });
   },
@@ -226,6 +229,30 @@ async function handleLinePayConfirm(request, env) {
   }));
 
   return Response.redirect(`${SITE_URL}/pages/payment-success.html?order_id=${orderId}`, 302);
+}
+
+// 查詢加值訂單狀態，供 payment-success.html 顯示結果
+async function handleLinePayOrder(request, env) {
+  const url = new URL(request.url);
+  const orderId = url.searchParams.get("order_id");
+
+  if (!orderId) {
+    return new Response(JSON.stringify({ error: "Missing order_id" }), { status: 400, headers: CORS });
+  }
+
+  const order = await env.SUBSCRIPTIONS.get(`linepay:${orderId}`, "json");
+  if (!order) {
+    return new Response(JSON.stringify({ error: "找不到訂單資訊" }), { status: 404, headers: CORS });
+  }
+
+  return new Response(JSON.stringify({
+    orderId: order.orderId,
+    status: order.status,
+    quota: order.quota,
+    amount: order.amount,
+  }), {
+    headers: { ...CORS, "Content-Type": "application/json" },
+  });
 }
 
 // LINE Pay API 簽章與請求：https://pay.line.me/jp/developers/apis/onlineApis
