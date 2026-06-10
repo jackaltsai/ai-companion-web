@@ -363,7 +363,7 @@ section { position: relative; }
 .phone-input button:disabled { opacity: 0.4; cursor: default; transform: none; }
 
 /* ============== PRICING ============== */
-.plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
+.plans { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-items: stretch; max-width: 720px; margin: 0 auto; }
 .plan {
   background: var(--surface); border: 0.5px solid var(--border); border-radius: 24px;
   padding: 32px 28px; display: flex; flex-direction: column; gap: 18px; position: relative;
@@ -378,16 +378,6 @@ section { position: relative; }
 .plan-popular {
   position: absolute; top: -12px; left: 32px;
   background: var(--accent); color: var(--accent-ink); font-size: 11px; letter-spacing: 0.1em;
-  text-transform: uppercase; border-radius: 100px; padding: 5px 14px; font-weight: 500;
-}
-.plan.value {
-  border: 1px solid color-mix(in srgb, var(--accent-2) 55%, transparent);
-  background: color-mix(in srgb, var(--accent-2) 6%, var(--surface));
-  box-shadow: 0 20px 50px -25px color-mix(in srgb, var(--accent-2) 50%, transparent);
-}
-.plan-value {
-  position: absolute; top: -12px; left: 32px;
-  background: var(--accent-2); color: var(--accent-ink); font-size: 11px; letter-spacing: 0.1em;
   text-transform: uppercase; border-radius: 100px; padding: 5px 14px; font-weight: 500;
 }
 .plan-name { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-sub); }

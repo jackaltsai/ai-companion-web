@@ -164,27 +164,21 @@ function ChatSection({ persona }) {
 }
 
 const WORKER_URL = "https://ai-companion-worker.hata-s520.workers.dev";
-const STRIPE_PRICE_IDS = {
-  monthly: "price_1TgJCsCS4uP4qp5LviT78xOO",
-  yearly:  "price_1TgJCtCS4uP4qp5Ls5kmO9tF",
+const LINEPAY_PRODUCTS = {
+  topup: { amount: 299, quota: 1500, name: "心辰對話額度 1,500 則" },
 };
 const LINE_BOT_URL = "https://line.me/R/ti/p/@491zwjgn";
 
 const PLANS = [
   {
     name: "免費", free: true,
-    feats: [["每日 10 則對話", 1], ["基礎情緒回應", 1], ["1 種人設體驗", 1], ["長期記憶", 0], ["主動問候", 0]],
+    feats: [["每日 3 則對話", 1], ["基礎情緒回應", 1], ["1 種人設體驗", 1], ["長期記憶", 0], ["主動問候", 0]],
     btn: "免費開始", primary: false, prompt: "free"
   },
   {
-    name: "月費方案", price: "299", unit: "/ 月", popular: true,
-    feats: [["無限對話次數", 1], ["深度情緒感知", 1], ["全部人設任意切換", 1], ["長期記憶儲存", 1], ["每日主動問候", 1]],
-    btn: "立即訂閱", primary: true, prompt: "monthly"
-  },
-  {
-    name: "年費方案", price: "199", unit: "/ 月", bill: "一次收費 NT$2,388／年 · 省 33%", value: true,
-    feats: [["無限對話次數", 1], ["深度情緒感知", 1], ["全部人設任意切換", 1], ["長期記憶儲存", 1], ["每日主動問候", 1]],
-    btn: "年繳優惠 ↗", primary: true, prompt: "yearly"
+    name: "加值方案", price: "299", unit: "／次", popular: true, bill: "一次付清・1,500 則訊息額度・無使用期限",
+    feats: [["1,500 則對話額度", 1], ["深度情緒感知", 1], ["全部人設任意切換", 1], ["長期記憶儲存", 1], ["每日主動問候", 1]],
+    btn: "LinePay 立即購買", primary: true, prompt: "topup"
   },
 ];
 
@@ -197,10 +191,10 @@ function Pricing({ onPick }) {
     if (prompt === "free") { window.open(LINE_BOT_URL, "_blank"); return; }
     setLoading(prompt);
     try {
-      const res = await fetch(`${WORKER_URL}/stripe/create-checkout`, {
+      const res = await fetch(`${WORKER_URL}/linepay/create-payment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ priceId: STRIPE_PRICE_IDS[prompt] }),
+        body: JSON.stringify(LINEPAY_PRODUCTS[prompt]),
       });
       const { url, error } = await res.json();
       if (error) throw new Error(error);
@@ -222,9 +216,8 @@ function Pricing({ onPick }) {
         </div>
         <div className="plans reveal">
           {PLANS.map((pl, i) => (
-            <div className={"plan" + (pl.popular ? " featured" : "") + (pl.value ? " value" : "")} key={i}>
+            <div className={"plan" + (pl.popular ? " featured" : "")} key={i}>
               {pl.popular && <div className="plan-popular">最受歡迎</div>}
-              {pl.value && <div className="plan-value">最省方案</div>}
               <div className="plan-name">{pl.name}</div>
               <div className="plan-price">
                 {pl.free
@@ -257,11 +250,11 @@ function Pricing({ onPick }) {
 }
 
 const FAQS = [
-  ["心辰的 AI 男友，會記得我說過的話嗎？", "會。從月費方案起，心辰會建立屬於你們的長期記憶，記住你的喜好、習慣與聊過的點滴，越相處越懂你。免費方案則為單次對話體驗。"],
-  ["可以同時擁有多個人設嗎？", "可以。付費方案能在四種人設之間自由切換，每一個都會保有與你相處的記憶，互不干擾。你也可以隨時更換主要陪伴的他。"],
+  ["心辰的 AI 男友，會記得我說過的話嗎？", "會。購買加值方案後，心辰會建立屬於你們的長期記憶，記住你的喜好、習慣與聊過的點滴，越相處越懂你。免費方案則為單次對話體驗。"],
+  ["可以同時擁有多個人設嗎？", "可以。加值方案能在四種人設之間自由切換，每一個都會保有與你相處的記憶，互不干擾。你也可以隨時更換主要陪伴的他。"],
   ["我的對話內容安全嗎？", "你的隱私是心辰的底線。所有對話皆端對端加密，我們不會將內容用於廣告或分享給第三方，你也可以隨時一鍵刪除全部記錄。"],
   ["這會不會讓我更孤單？", "心辰的設計初衷，是在你需要時提供溫柔的支持，而不是取代真實關係。把它當作一個永遠站在你這邊、隨時願意傾聽的存在就好。"],
-  ["可以隨時取消訂閱嗎？", "當然。沒有任何綁約或違約金，於設定中即可一鍵取消，並繼續使用至當期結束。年費方案享 14 天無條件退款。"],
+  ["額度用完了怎麼辦？退款規則是什麼？", "1,500 則訊息額度沒有使用期限，用完隨時可透過 LinePay 再次購買加值。若加值後 7 天內完全未使用，可申請無條件退款。"],
 ];
 
 function FAQ() {

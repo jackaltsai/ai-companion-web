@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>訂閱成功 — 心辰</title>
+  <title>付款成功 — 心辰</title>
   <link rel="stylesheet" href="../styles.css">
   <style>
     body { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--bg); background-image: var(--bg-grad); }
@@ -19,7 +19,7 @@
   <div class="card">
     <div class="icon">✦</div>
     <h1>歡迎加入心辰</h1>
-    <p id="msg">正在確認你的訂閱狀態，請稍候…</p>
+    <p id="msg">正在確認你的付款狀態，請稍候…</p>
     <div class="status" id="status"></div>
     <a href="https://line.me/R/ti/p/@491zwjgn" class="btn btn-primary" id="line-btn" style="display:none; width:100%; justify-content:center;">
       前往 LINE 開始使用 ↗
@@ -29,13 +29,19 @@
   <script>
     const WORKER_URL = "https://ai-companion-worker.hata-s520.workers.dev";
     const params = new URLSearchParams(location.search);
-    const provider = params.get("provider") || "stripe";
+    const orderId = params.get("order_id");
+    const provider = orderId ? "linepay" : (params.get("provider") || "stripe");
 
     async function checkStatus() {
       try {
         let data;
 
-        if (provider === "stripe") {
+        if (provider === "linepay") {
+          if (!orderId) throw new Error("找不到訂單資訊");
+          const res = await fetch(`${WORKER_URL}/linepay/order?order_id=${orderId}`);
+          data = await res.json();
+          if (data.error) throw new Error(data.error);
+        } else if (provider === "stripe") {
           const sessionId = params.get("session_id");
           if (!sessionId) throw new Error("找不到付款資訊");
           const res = await fetch(`${WORKER_URL}/stripe/session?session_id=${sessionId}`);
@@ -48,7 +54,16 @@
           sessionStorage.removeItem("pendingSubId");
         }
 
-        if (data.status === "ACTIVE" || data.status === "paid") {
+        if (provider === "linepay") {
+          if (data.status === "CONFIRMED") {
+            document.getElementById("msg").textContent = `加值成功！${data.quota.toLocaleString()} 則對話額度已加入帳號，點下方按鈕前往 LINE 開始使用。`;
+            document.getElementById("status").textContent = `加值完成 · NT$${data.amount}／${data.quota.toLocaleString()} 則`;
+            document.getElementById("status").className = "status active";
+          } else {
+            document.getElementById("msg").textContent = "付款確認中，請稍後加入 LINE 即可使用，額度將自動加值至你的帳號。";
+          }
+          document.getElementById("line-btn").style.display = "flex";
+        } else if (data.status === "ACTIVE" || data.status === "paid") {
           document.getElementById("msg").textContent = "訂閱已開通！點下方按鈕前往 LINE 與你的 AI 男友開始對話。";
           document.getElementById("status").textContent = `訂閱已啟用 · ${data.email || ""}`;
           document.getElementById("status").className = "status active";
