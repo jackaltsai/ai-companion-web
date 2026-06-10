@@ -59,8 +59,8 @@ function App() {
   const onStart = () => window.open(LINE_URL, "_blank");
   const onPick = (plan) => {
     if (plan === "free") { window.open(LINE_URL, "_blank"); return; }
-    const label = { monthly: "月費方案 NT$299／月", yearly: "年費方案 NT$199／月" }[plan];
-    setToast("示範模式：前往「" + label + "」結帳 ✓");
+    const label = { topup: "加值方案 NT$299／1,500 則" }[plan];
+    setToast("示範模式：前往「" + label + "」LinePay 結帳 ✓");
   };
 
   return (
