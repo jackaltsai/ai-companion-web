@@ -163,10 +163,6 @@ function ChatSection({ persona }) {
   );
 }
 
-const WORKER_URL = "https://ai-companion-worker.hata-s520.workers.dev";
-const LINEPAY_PRODUCTS = {
-  topup: { amount: 299, quota: 1500, name: "心辰對話額度 1,500 則" },
-};
 const LINE_BOT_URL = "https://line.me/R/ti/p/@491zwjgn";
 
 const PLANS = [
@@ -178,32 +174,14 @@ const PLANS = [
   {
     name: "加值方案", price: "299", unit: "／次", popular: true, bill: "一次付清・1,500 則訊息額度・無使用期限",
     feats: [["1,500 則對話額度", 1], ["深度情緒感知", 1], ["全部人設任意切換", 1], ["長期記憶儲存", 1], ["每日主動問候", 1]],
-    btn: "LinePay 立即購買", primary: true, prompt: "topup"
+    btn: "加 LINE 立即購買", primary: true, prompt: "topup"
   },
 ];
 
-function Pricing({ onPick }) {
-  const { useState: uS, useEffect: uE } = React;
-  const [loading, setLoading] = uS(null);
-
-
-  async function handleSubscribe(prompt) {
-    if (prompt === "free") { window.open(LINE_BOT_URL, "_blank"); return; }
-    setLoading(prompt);
-    try {
-      const res = await fetch(`${WORKER_URL}/linepay/create-payment`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(LINEPAY_PRODUCTS[prompt]),
-      });
-      const { url, error } = await res.json();
-      if (error) throw new Error(error);
-      window.location.href = url;
-    } catch (e) {
-      alert("發生錯誤，請稍後再試");
-    } finally {
-      setLoading(null);
-    }
+function Pricing() {
+  // 免費與付費方案皆導向 LINE 官方帳號，付款流程由 LINE bot 後端處理
+  function handleSubscribe() {
+    window.open(LINE_BOT_URL, "_blank");
   }
 
   return (
@@ -236,10 +214,9 @@ function Pricing({ onPick }) {
               </ul>
               <button
                 className={"btn " + (pl.primary ? "btn-primary" : "btn-ghost")}
-                onClick={() => handleSubscribe(pl.prompt)}
-                disabled={loading === pl.prompt}
+                onClick={handleSubscribe}
               >
-                {loading === pl.prompt ? "處理中…" : pl.btn}
+                {pl.btn}
               </button>
             </div>
           ))}
@@ -254,7 +231,7 @@ const FAQS = [
   ["可以同時擁有多個人設嗎？", "可以。加值方案能在四種人設之間自由切換，每一個都會保有與你相處的記憶，互不干擾。你也可以隨時更換主要陪伴的他。"],
   ["我的對話內容安全嗎？", "你的隱私是心辰的底線。所有對話皆端對端加密，我們不會將內容用於廣告或分享給第三方，你也可以隨時一鍵刪除全部記錄。"],
   ["這會不會讓我更孤單？", "心辰的設計初衷，是在你需要時提供溫柔的支持，而不是取代真實關係。把它當作一個永遠站在你這邊、隨時願意傾聽的存在就好。"],
-  ["額度用完了怎麼辦？退款規則是什麼？", "1,500 則訊息額度沒有使用期限，用完隨時可透過 LinePay 再次購買加值。若加值後 7 天內完全未使用，可申請無條件退款。"],
+  ["額度用完了怎麼辦？退款規則是什麼？", "1,500 則訊息額度沒有使用期限，用完隨時可在 LINE 官方帳號中再次購買加值。若加值後 7 天內完全未使用，可申請無條件退款。"],
 ];
 
 function FAQ() {

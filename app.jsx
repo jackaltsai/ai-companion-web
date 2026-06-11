@@ -57,11 +57,6 @@ function App() {
   }
   const LINE_URL = "https://line.me/R/ti/p/@491zwjgn";
   const onStart = () => window.open(LINE_URL, "_blank");
-  const onPick = (plan) => {
-    if (plan === "free") { window.open(LINE_URL, "_blank"); return; }
-    const label = { topup: "加值方案 NT$299／1,500 則" }[plan];
-    setToast("示範模式：前往「" + label + "」LinePay 結帳 ✓");
-  };
 
   return (
     <div className="app" data-theme={theme}>
@@ -70,7 +65,7 @@ function App() {
       <Features />
       <PersonaSection personas={personas} selId={selId} setSel={setSel} />
       <ChatSection persona={persona} />
-      <Pricing onPick={onPick} />
+      <Pricing />
       <FAQ />
       <FinalCTA persona={persona} onStart={onStart} />
       <Footer />
