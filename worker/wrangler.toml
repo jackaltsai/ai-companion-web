@@ -3,20 +3,8 @@ main = "index.js"
 compatibility_date = "2024-01-01"
 
 [[kv_namespaces]]
-binding = "SUBSCRIPTIONS"
-id = "d436a6061a564700a15549af70984795"
-
-[[kv_namespaces]]
 binding = "CLICK_TRACKING"
 id = "b45f7fa080294924bf52732785c129a1"
 
 # 在 Cloudflare Dashboard → Worker → Settings → Variables 設定以下 Secrets：
-# STRIPE_SECRET_KEY      = sk_test_... (或正式的 sk_live_...)
-# STRIPE_WEBHOOK_SECRET  = whsec_...
-# LINEPAY_CHANNEL_ID     = LINE Pay 商家後台取得的 Channel ID
-# LINEPAY_CHANNEL_SECRET = LINE Pay 商家後台取得的 Channel Secret
-# STATS_TOKEN            = 自訂密碼，用於 /go/stats?token=xxx 查詢點擊統計
-#
-# 一般環境變數（非機密，可直接寫在這裡）：
-# LINEPAY_API_BASE = https://sandbox-api-pay.line.me （測試環境，預設值）
-#                    https://api-pay.line.me        （正式環境）
+# STATS_TOKEN = 自訂密碼，用於 /go/stats?token=xxx 查詢點擊統計
