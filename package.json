@@ -1,0 +1,8 @@
+{
+  "name": "ai-companion-web",
+  "private": true,
+  "scripts": {
+    "deploy:web": "npx wrangler deploy",
+    "deploy:api": "npx wrangler deploy --config worker/wrangler.toml"
+  }
+}
