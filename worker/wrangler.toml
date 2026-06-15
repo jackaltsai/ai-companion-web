@@ -6,11 +6,9 @@ compatibility_date = "2024-01-01"
 binding = "SUBSCRIPTIONS"
 id = "d436a6061a564700a15549af70984795"
 
-# 點擊追蹤用 KV namespace，需另外建立並填入 id：
-#   npx wrangler kv namespace create CLICK_TRACKING
 [[kv_namespaces]]
 binding = "CLICK_TRACKING"
-id = "REPLACE_WITH_CLICK_TRACKING_KV_NAMESPACE_ID"
+id = "b45f7fa080294924bf52732785c129a1"
 
 # 在 Cloudflare Dashboard → Worker → Settings → Variables 設定以下 Secrets：
 # STRIPE_SECRET_KEY      = sk_test_... (或正式的 sk_live_...)
