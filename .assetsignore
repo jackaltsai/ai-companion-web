@@ -1,0 +1,15 @@
+# 這些不是網站內容，部署靜態資源時不應該上傳／公開
+.git
+.github
+.wrangler
+.dev.vars*
+.env*
+.DS_Store
+node_modules
+worker
+package.json
+package-lock.json
+wrangler.jsonc
+README.md
+CLAUDE.md
+tweaks-panel.jsx
