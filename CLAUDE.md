@@ -8,12 +8,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 執行原型
 
-無需建置步驟，直接用瀏覽器開啟 `心辰 Landing.html` 即可。所有 JSX 均透過 Babel CDN 在瀏覽器內即時轉譯；本專案沒有 `package.json`、npm 或 linting 工具鏈。
+無需建置步驟，直接用瀏覽器開啟 `HeartChenLanding.html` 即可。所有 JSX 均透過 Babel CDN 在瀏覽器內即時轉譯；本專案沒有 `package.json`、npm 或 linting 工具鏈。
 
 ## 架構
 
 ### 入口點與模組結構
-- `心辰 Landing.html` — 主入口；透過 CDN 載入 React + Babel，以 `text/babel` 方式引入所有 `.jsx`/`.js` 檔案
+- `HeartChenLanding.html` — 主入口；透過 CDN 載入 React + Babel，以 `text/babel` 方式引入所有 `.jsx`/`.js` 檔案
 - `app.jsx` — 根元件；管理全域狀態（`selId`、`messages`、`input`、`typing`、`toast`）、主題切換，並渲染所有區塊
 - `sections.jsx` — 所有頁面區塊：Nav、Hero、Features、PersonaSection、ChatSection、PricingSection、FAQ、FinalCTA、Footer
 - `chat.jsx` — `ChatDemo` 元件；處理訊息流、打字指示、建議話題膠囊，以及 LLM／腳本回覆路由

@@ -26,7 +26,7 @@
 
 | 路由 | 檔案 | 內容 |
 |---|---|---|
-| `/` | `心辰 Landing.html` | 行銷落地頁主頁 |
+| `/` | `HeartChenLanding.html` | 行銷落地頁主頁 |
 | `/terms` | `pages/terms.html` | 服務條款 |
 | `/privacy` | `pages/privacy.html` | 隱私權政策 |
 | `/refund` | `pages/refund.html` | 退款政策 |
@@ -259,7 +259,7 @@
 ---
 
 ## Files（本交接包內含）
-- `心辰 Landing.html` — 落地頁進入點（載入順序：React → ReactDOM → Babel → personas.js → tweaks-panel.jsx → chat.jsx → sections.jsx → app.jsx）
+- `HeartChenLanding.html` — 落地頁進入點（載入順序：React → ReactDOM → Babel → personas.js → tweaks-panel.jsx → chat.jsx → sections.jsx → app.jsx）
 - `app.jsx` — 主程式：`App` 組裝各區塊、主題對應、人設選擇與連動、toast、Tweaks 面板
 - `sections.jsx` — 所有區塊元件 + 資料（`FEATURES` / `PLANS` / `FAQS`）
 - `chat.jsx` — `ChatDemo` 試聊原型（含 LLM/腳本雙路回覆）
