@@ -35,7 +35,7 @@ export default {
 
 // ============== 點擊追蹤轉址 /go/:code ==============
 
-const GO_REDIRECT_URL = "https://line.me/R/ti/p/@491zwjgn";
+const GO_REDIRECT_URL = "https://line.me/R/ti/p/@heartchen";
 
 async function handleClickRedirect(request, env, rawCode) {
   const code = decodeURIComponent(rawCode || "").trim();

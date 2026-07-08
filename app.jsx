@@ -48,7 +48,7 @@ function App() {
     const el = document.getElementById(id);
     if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 60, behavior: "smooth" });
   }
-  const LINE_URL = "https://line.me/R/ti/p/@491zwjgn";
+  const LINE_URL = "https://line.me/R/ti/p/@heartchen";
   const onStart = () => window.open(LINE_URL, "_blank");
 
   return (

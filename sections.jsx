@@ -163,7 +163,7 @@ function ChatSection({ persona }) {
   );
 }
 
-const LINE_BOT_URL = "https://line.me/R/ti/p/@491zwjgn";
+const LINE_BOT_URL = "https://line.me/R/ti/p/@heartchen";
 
 const PLANS = [
   {
