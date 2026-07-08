@@ -12,7 +12,7 @@ id = "b45f7fa080294924bf52732785c129a1"
 
 [[kv_namespaces]]
 binding = "CONTACT_MESSAGES"
-id = "REPLACE_WITH_CONTACT_MESSAGES_KV_NAMESPACE_ID"
+id = "ad1ec9f8c412414981a2394fb7a44169"
 
 # 在 Cloudflare Dashboard → Worker → Settings → Variables 設定以下 Secrets：
 # STATS_TOKEN = 自訂密碼，用於 /go/stats?token=xxx 查詢點擊統計，
