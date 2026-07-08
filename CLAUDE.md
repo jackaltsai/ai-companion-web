@@ -8,11 +8,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 執行原型
 
-無需建置步驟，直接用瀏覽器開啟 `HeartChenLanding.html` 即可。所有 JSX 均透過 Babel CDN 在瀏覽器內即時轉譯；本專案沒有 `package.json`、npm 或 linting 工具鏈。
+無需建置步驟，直接用瀏覽器開啟 `public/HeartChenLanding.html` 即可。所有 JSX 均透過 Babel CDN 在瀏覽器內即時轉譯，無 linting 工具鏈。部署時 `wrangler.jsonc` 的 `assets.directory` 指向 `public/`，這是唯一會被公開發布的目錄——`.git`、`worker/`、設定檔等都在這個目錄之外，不會隨網站部署外流。
 
 ## 架構
 
 ### 入口點與模組結構
+以下皆位於 `public/`：
 - `HeartChenLanding.html` — 主入口；透過 CDN 載入 React + Babel，以 `text/babel` 方式引入所有 `.jsx`/`.js` 檔案
 - `app.jsx` — 根元件；管理全域狀態（`selId`、`messages`、`input`、`typing`、`toast`）、主題切換，並渲染所有區塊
 - `sections.jsx` — 所有頁面區塊：Nav、Hero、Features、PersonaSection、ChatSection、PricingSection、FAQ、FinalCTA、Footer
