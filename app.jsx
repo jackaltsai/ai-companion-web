@@ -2,13 +2,12 @@
 const { useState: uS, useEffect: uE, useRef: uR } = React;
 
 const THEME_MAP = { "午夜玫瑰": "rose", "暗金奢華": "gold", "冷夜霓虹": "indigo" };
-const PERSONA_LABELS = window.PERSONAS.map(p => p.name + " · " + p.archetype);
 
-const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+const APP_CONFIG = {
   "style": "午夜玫瑰",
   "defaultPersona": "沉 · 成熟穩重",
   "motion": true
-}/*EDITMODE-END*/;
+};
 
 function Toast({ msg, onDone }) {
   uE(() => {
@@ -33,18 +32,12 @@ function useReveal(active, dep) {
 }
 
 function App() {
-  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const t = APP_CONFIG;
   const personas = window.PERSONAS;
 
   const initId = (personas.find(p => (p.name + " · " + p.archetype) === t.defaultPersona) || personas[0]).id;
   const [selId, setSel] = uS(initId);
   const [toast, setToast] = uS("");
-
-  // keep selection in sync when the default-persona tweak changes
-  uE(() => {
-    const match = personas.find(p => (p.name + " · " + p.archetype) === t.defaultPersona);
-    if (match) setSel(match.id);
-  }, [t.defaultPersona]);
 
   const persona = personas.find(p => p.id === selId) || personas[0];
   const theme = persona.theme || "rose";
@@ -71,15 +64,6 @@ function App() {
       <Footer />
 
       <Toast msg={toast} onDone={() => setToast("")} />
-
-      <TweaksPanel>
-        <TweakSection label="內容" />
-        <TweakSelect label="預設人設" value={t.defaultPersona}
-          options={PERSONA_LABELS}
-          onChange={(v) => setTweak("defaultPersona", v)} />
-        <TweakToggle label="進場動畫" value={t.motion}
-          onChange={(v) => setTweak("motion", v)} />
-      </TweaksPanel>
     </div>
   );
 }

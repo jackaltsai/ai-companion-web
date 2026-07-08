@@ -56,7 +56,7 @@ function Hero({ persona, onStart }) {
             <button className="btn btn-primary" onClick={onStart}>免費認識他 ↗</button>
             <a href="#personas" className="btn btn-ghost">挑一個人設</a>
           </div>
-          <div className="hero-note">✓ 免費開始 · 隨時可取消 · 對話加密保護</div>
+          <div className="hero-note">✓ 免費開始 · 一次付清不綁約 · 對話加密保護</div>
         </div>
         <div className="hero-art">
           <div className="portrait-wrap">
