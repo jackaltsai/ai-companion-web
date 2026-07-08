@@ -93,6 +93,10 @@
           <label for="msg">訊息內容</label>
           <textarea id="msg" placeholder="把想說的告訴我們…" required></textarea>
         </div>
+        <div class="field" style="position:absolute;left:-9999px;" aria-hidden="true">
+          <label for="website">Website</label>
+          <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
         <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">送出訊息</button>
         <div class="form-ok" id="formok"></div>
       </form>
@@ -117,22 +121,60 @@
 </div>
 
 <script>
+  // TODO：確認這是你實際部署 worker/index.js（wrangler name: ai-companion-worker）的網址，
+  // 部署後如網域不同請更新此處。
+  var CONTACT_API = 'https://ai-companion-worker.hata-s520.workers.dev/contact';
+
   (function () {
     var form = document.getElementById('cform');
     var ok = document.getElementById('formok');
+    var submitBtn = form.querySelector('button[type="submit"]');
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var name = document.getElementById('name');
       var email = document.getElementById('email');
+      var topic = document.getElementById('topic');
       var msg = document.getElementById('msg');
+      var website = document.getElementById('website');
+
       if (!name.value.trim() || !email.value.trim() || !msg.value.trim()) {
         ok.style.color = 'var(--text-dim)';
         ok.textContent = '請填寫暱稱、電子郵件與訊息內容。';
         return;
       }
-      ok.style.color = 'var(--accent)';
-      ok.textContent = '✓ 已收到你的訊息，' + name.value.trim() + '，我們會盡快回覆你。';
-      form.reset();
+
+      submitBtn.disabled = true;
+      ok.style.color = 'var(--text-dim)';
+      ok.textContent = '傳送中…';
+
+      fetch(CONTACT_API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: name.value.trim(),
+          email: email.value.trim(),
+          topic: topic.value,
+          message: msg.value.trim(),
+          website: website.value,
+        }),
+      })
+        .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+        .then(function (result) {
+          if (!result.ok || !result.data.ok) {
+            throw new Error((result.data && result.data.error) || '傳送失敗');
+          }
+          ok.style.color = 'var(--accent)';
+          ok.textContent = '✓ 已收到你的訊息，' + name.value.trim() + '，我們會盡快回覆你。';
+          form.reset();
+        })
+        .catch(function () {
+          ok.style.color = 'var(--text-dim)';
+          ok.textContent = '傳送失敗，請改寄信至 support@heartchen.com，或稍後再試一次。';
+        })
+        .finally(function () {
+          submitBtn.disabled = false;
+        });
     });
   })();
 </script>

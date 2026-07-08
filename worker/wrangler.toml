@@ -6,5 +6,10 @@ compatibility_date = "2024-01-01"
 binding = "CLICK_TRACKING"
 id = "b45f7fa080294924bf52732785c129a1"
 
+[[kv_namespaces]]
+binding = "CONTACT_MESSAGES"
+id = "REPLACE_WITH_CONTACT_MESSAGES_KV_NAMESPACE_ID"
+
 # 在 Cloudflare Dashboard → Worker → Settings → Variables 設定以下 Secrets：
-# STATS_TOKEN = 自訂密碼，用於 /go/stats?token=xxx 查詢點擊統計
+# STATS_TOKEN = 自訂密碼，用於 /go/stats?token=xxx 查詢點擊統計，
+#               同時用於 /contact/list?token=xxx 查詢聯絡表單留言
