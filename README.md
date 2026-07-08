@@ -24,13 +24,15 @@
 
 ## Information Architecture / Routes
 
+部署時的靜態資源根目錄是 `public/`（見 `wrangler.jsonc` 的 `assets.directory`），以下路徑皆相對於 `public/`。
+
 | 路由 | 檔案 | 內容 |
 |---|---|---|
-| `/` | `HeartChenLanding.html` | 行銷落地頁主頁 |
-| `/terms` | `pages/terms.html` | 服務條款 |
-| `/privacy` | `pages/privacy.html` | 隱私權政策 |
-| `/refund` | `pages/refund.html` | 退款政策 |
-| `/contact` | `pages/contact.html` | 聯絡我們（含表單） |
+| `/` | `public/HeartChenLanding.html` | 行銷落地頁主頁 |
+| `/terms` | `public/pages/terms.html` | 服務條款 |
+| `/privacy` | `public/pages/privacy.html` | 隱私權政策 |
+| `/refund` | `public/pages/refund.html` | 退款政策 |
+| `/contact` | `public/pages/contact.html` | 聯絡我們（含表單） |
 
 落地頁內錨點：`#personas`（人設）、`#chat`（試聊）、`#pricing`（方案）、`#faq`（問答）、`#features`。
 
@@ -259,15 +261,17 @@
 ---
 
 ## Files（本交接包內含）
-- `HeartChenLanding.html` — 落地頁進入點（載入順序：React → ReactDOM → Babel → personas.js → tweaks-panel.jsx → chat.jsx → sections.jsx → app.jsx）
-- `app.jsx` — 主程式：`App` 組裝各區塊、主題對應、人設選擇與連動、toast、Tweaks 面板
-- `sections.jsx` — 所有區塊元件 + 資料（`FEATURES` / `PLANS` / `FAQS`）
-- `chat.jsx` — `ChatDemo` 試聊原型（含 LLM/腳本雙路回覆）
-- `personas.js` — 4 位人設資料庫
-- `styles.css` — 全部樣式與三套主題 token（562 行，唯一樣式來源）
-- `tweaks-panel.jsx` — 原型期 Tweaks 面板（**正式環境可移除**）
-- `pages/terms.html`、`pages/privacy.html`、`pages/refund.html`、`pages/contact.html` — 法務／聯絡子頁
-- `assets/portrait-*.png` — 人物插畫
+以下皆位於 `public/`，這是實際部署上線的靜態資源目錄；`worker/` 是另一支獨立部署的 API worker，不屬於這個目錄。
+
+- `public/HeartChenLanding.html` — 落地頁進入點（載入順序：React → ReactDOM → Babel → personas.js → chat.jsx → sections.jsx → app.jsx）
+- `public/app.jsx` — 主程式：`App` 組裝各區塊、主題對應、人設選擇與連動、toast
+- `public/sections.jsx` — 所有區塊元件 + 資料（`FEATURES` / `PLANS` / `FAQS`）
+- `public/chat.jsx` — `ChatDemo` 試聊原型（含 LLM/腳本雙路回覆）
+- `public/personas.js` — 4 位人設資料庫
+- `public/styles.css` — 全部樣式與三套主題 token（562 行，唯一樣式來源）
+- `public/pages/terms.html`、`public/pages/privacy.html`、`public/pages/refund.html`、`public/pages/contact.html` — 法務／聯絡子頁
+- `public/assets/portrait-*.png` — 人物插畫
+- `tweaks-panel.jsx`（repo 根目錄）— 原型期 Tweaks 面板，**已從正式版移除**，不在 `public/` 內也未被任何頁面載入
 
 ### 設計截圖（`screenshots/`）
 高保真參考圖,供未參與此對話的工程師對照:
