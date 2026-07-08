@@ -190,7 +190,7 @@ function Pricing() {
         <div className="sec-head reveal">
           <span className="eyebrow">陪伴方案</span>
           <h2>選擇你的陪伴方案</h2>
-          <p>隨時可以升級或取消，沒有綁約、沒有壓力。</p>
+          <p>一次付清，沒有訂閱、沒有自動扣款，用完再加值即可。</p>
         </div>
         <div className="plans reveal">
           {PLANS.map((pl, i) => (
@@ -221,6 +221,9 @@ function Pricing() {
             </div>
           ))}
         </div>
+        <p className="plan-legal-note reveal">
+          購買加值方案即表示你同意<a href="pages/terms.html">服務條款</a>與<a href="pages/refund.html">退款政策</a>；付款由 LINE Pay 處理。
+        </p>
       </div>
     </section>
   );
