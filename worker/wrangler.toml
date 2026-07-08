@@ -2,9 +2,18 @@ name = "ai-companion-worker"
 main = "index.js"
 compatibility_date = "2024-01-01"
 
+[[routes]]
+pattern = "api.heartchen.com"
+custom_domain = true
+
 [[kv_namespaces]]
 binding = "CLICK_TRACKING"
 id = "b45f7fa080294924bf52732785c129a1"
 
+[[kv_namespaces]]
+binding = "CONTACT_MESSAGES"
+id = "ad1ec9f8c412414981a2394fb7a44169"
+
 # 在 Cloudflare Dashboard → Worker → Settings → Variables 設定以下 Secrets：
-# STATS_TOKEN = 自訂密碼，用於 /go/stats?token=xxx 查詢點擊統計
+# STATS_TOKEN = 自訂密碼，用於 /go/stats?token=xxx 查詢點擊統計，
+#               同時用於 /contact/list?token=xxx 查詢聯絡表單留言

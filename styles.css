@@ -392,6 +392,8 @@ section { position: relative; }
 .plan-features li .ck { color: var(--accent); flex-shrink: 0; font-size: 15px; line-height: 1.4; }
 .plan-features li.off { opacity: 0.38; }
 .plan-features li.off .ck { color: var(--text-dim); }
+.plan-legal-note { margin-top: 28px; text-align: center; font-size: 12px; color: var(--text-dim); line-height: 1.7; }
+.plan-legal-note a { color: var(--text-sub); text-decoration: underline; text-underline-offset: 2px; }
 .plan .btn { width: 100%; justify-content: center; margin-top: 4px; }
 .save-tag { font-size: 10px; color: var(--accent-2); border:0.5px solid color-mix(in srgb,var(--accent-2) 40%, transparent); border-radius: 100px; padding: 1px 7px; margin-left: 6px; }
 
