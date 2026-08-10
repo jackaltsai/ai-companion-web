@@ -222,7 +222,7 @@ function Pricing() {
           ))}
         </div>
         <p className="plan-legal-note reveal">
-          訂閱加值方案即表示你同意<a href="pages/terms.html">服務條款</a>與<a href="pages/refund.html">退款政策</a>；訂閱將於每月自動續訂並由 LINE Pay 扣款，可隨時取消。
+          訂閱加值方案即表示你同意<a href="pages/terms.html">服務條款</a>與<a href="pages/refund.html">退款政策</a>；訂閱將於每月自動續訂並由 Oen 應援科技扣款，可隨時取消。
         </p>
       </div>
     </section>
