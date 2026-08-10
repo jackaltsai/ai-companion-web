@@ -56,7 +56,7 @@ function Hero({ persona, onStart }) {
             <button className="btn btn-primary" onClick={onStart}>免費認識他 ↗</button>
             <a href="#personas" className="btn btn-ghost">挑一個人設</a>
           </div>
-          <div className="hero-note">✓ 免費開始 · 一次付清不綁約 · 對話加密保護</div>
+          <div className="hero-note">✓ 免費開始 · 訂閱可隨時取消 · 對話加密保護</div>
         </div>
         <div className="hero-art">
           <div className="portrait-wrap">
@@ -172,14 +172,14 @@ const PLANS = [
     btn: "免費開始", primary: false, prompt: "free"
   },
   {
-    name: "加值方案", price: "299", unit: "／次", popular: true, bill: "一次付清・500 則訊息額度・無使用期限",
-    feats: [["500 則對話額度", 1], ["深度情緒感知", 1], ["全部人設任意切換", 1], ["長期記憶儲存", 1], ["每日主動問候", 1]],
-    btn: "加 LINE 立即購買", primary: true, prompt: "topup"
+    name: "加值方案", price: "299", unit: "／月", popular: true, bill: "每月自動續訂・訊息無上限・無使用期限，可隨時取消",
+    feats: [["訊息無上限", 1], ["深度情緒感知", 1], ["全部人設任意切換", 1], ["長期記憶儲存", 1], ["每日主動問候", 1]],
+    btn: "加 LINE 立即訂閱", primary: true, prompt: "topup"
   },
 ];
 
 function Pricing() {
-  // 免費與付費方案皆導向 LINE 官方帳號，付款流程由 LINE bot 後端處理
+  // 免費與付費方案皆導向 LINE 官方帳號，訂閱與扣款流程由 LINE bot 後端處理
   function handleSubscribe() {
     window.open(LINE_BOT_URL, "_blank");
   }
@@ -190,7 +190,7 @@ function Pricing() {
         <div className="sec-head reveal">
           <span className="eyebrow">陪伴方案</span>
           <h2>選擇你的陪伴方案</h2>
-          <p>一次付清，沒有訂閱、沒有自動扣款，用完再加值即可。</p>
+          <p>每月 NT$299，自動續訂、無使用期限，可隨時取消。</p>
         </div>
         <div className="plans reveal">
           {PLANS.map((pl, i) => (
@@ -222,7 +222,7 @@ function Pricing() {
           ))}
         </div>
         <p className="plan-legal-note reveal">
-          購買加值方案即表示你同意<a href="pages/terms.html">服務條款</a>與<a href="pages/refund.html">退款政策</a>；付款由 LINE Pay 處理。
+          訂閱加值方案即表示你同意<a href="pages/terms.html">服務條款</a>與<a href="pages/refund.html">退款政策</a>；訂閱將於每月自動續訂並由 LINE Pay 扣款，可隨時取消。
         </p>
       </div>
     </section>
@@ -230,11 +230,11 @@ function Pricing() {
 }
 
 const FAQS = [
-  ["心辰的 AI 男友，會記得我說過的話嗎？", "會。購買加值方案後，心辰會建立屬於你們的長期記憶，記住你的喜好、習慣與聊過的點滴，越相處越懂你。免費方案則為單次對話體驗。"],
+  ["心辰的 AI 男友，會記得我說過的話嗎？", "會。訂閱加值方案後，心辰會建立屬於你們的長期記憶，記住你的喜好、習慣與聊過的點滴，越相處越懂你。免費方案則為單次對話體驗。"],
   ["可以同時擁有多個人設嗎？", "可以。加值方案能在四種人設之間自由切換，每一個都會保有與你相處的記憶，互不干擾。你也可以隨時更換主要陪伴的他。"],
   ["我的對話內容安全嗎？", "你的隱私是心辰的底線。所有對話皆端對端加密，我們不會將內容用於廣告或分享給第三方，你也可以隨時一鍵刪除全部記錄。"],
   ["這會不會讓我更孤單？", "心辰的設計初衷，是在你需要時提供溫柔的支持，而不是取代真實關係。把它當作一個永遠站在你這邊、隨時願意傾聽的存在就好。"],
-  ["額度用完了怎麼辦？退款規則是什麼？", "500 則訊息額度沒有使用期限，用完隨時可在 LINE 官方帳號中再次購買加值。若加值後 7 天內完全未使用，可申請無條件退款。"],
+  ["訂閱可以取消嗎？退款規則是什麼？", "加值方案為每月 NT$299 自動續訂、無使用期限，你可隨時在 LINE 官方帳號中取消訂閱，取消後服務會持續到當期到期為止，不再續扣。若訂閱後 7 天內完全未使用，可申請無條件退款。"],
 ];
 
 function FAQ() {
