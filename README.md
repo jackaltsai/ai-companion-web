@@ -86,7 +86,7 @@
 - **Layout**：置中 header ＋ 2 欄 grid（gap 20px，等高 stretch）。
 - **兩張方案卡**（資料見 `sections.jsx` `PLANS`）：
   - **免費**：價格顯示 italic「Free」；每日 3 則對話；功能清單部分項目 `.off`（灰階 0.38、圓點改為 `·`）。CTA ghost「免費開始」。
-  - **加值方案 NT$299／月**：`.featured`（accent 邊框 + accent 8% 底 + glow 陰影），左上「最受歡迎」徽章。副標「每月自動續訂・訊息無上限・無使用期限，可隨時取消」。功能全亮（✦）。CTA primary「加 LINE 立即訂閱」，透過 Oen 應援科技每月自動扣款續訂。
+  - **加值方案 NT$299／月**：`.featured`（accent 邊框 + accent 8% 底 + glow 陰影），左上「最受歡迎」徽章。副標「每月自動續訂・500 則對話額度・無使用期限，可隨時取消」。功能全亮（✦）。CTA primary「加 LINE 立即訂閱」，透過 Oen 應援科技每月自動扣款續訂。
 - **價格樣式**：金額用 serif 52px；幣別/單位小字 dim。
 - 點擊方案按鈕 → 觸發 toast（示範模式，無真實結帳）。
 

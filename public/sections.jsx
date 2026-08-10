@@ -172,8 +172,8 @@ const PLANS = [
     btn: "免費開始", primary: false, prompt: "free"
   },
   {
-    name: "加值方案", price: "299", unit: "／月", popular: true, bill: "每月自動續訂・訊息無上限・無使用期限，可隨時取消",
-    feats: [["訊息無上限", 1], ["深度情緒感知", 1], ["全部人設任意切換", 1], ["長期記憶儲存", 1], ["每日主動問候", 1]],
+    name: "加值方案", price: "299", unit: "／月", popular: true, bill: "每月自動續訂・500 則對話額度・無使用期限，可隨時取消",
+    feats: [["500 則對話額度", 1], ["深度情緒感知", 1], ["全部人設任意切換", 1], ["長期記憶儲存", 1], ["每日主動問候", 1]],
     btn: "加 LINE 立即訂閱", primary: true, prompt: "topup"
   },
 ];
